@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import mergeSort from '../../SortingAlgorithm/MergeSort';
 
 export const MContext = React.createContext();
+
+const PRIMARY_COLOR = 'teal';
+const SECONDARY_COLOR = 'red';
+const ANIMATION_SPEED_MS = 5;
 
 export class Provider extends Component {
 	state = {
@@ -13,12 +18,36 @@ export class Provider extends Component {
 		for (let i = 0; i < 200; i++) {
 			array.push(randomIntFromIntervals(7, 730));
 		}
-		this.setState({ array: array });
+		this.setState({ array: array, selectedOption: null });
 	}
 
-	mergeSort() {
-		console.log('selected MergeSort');
+	handleMergeSort() {
+		const animations = mergeSort(this.state.array);
+		for (let i = 0; i < animations.length; i++) {
+			const arrayBars = document.getElementsByClassName('array-bar');
+			const isColorChange = i % 3 !== 2;
+			if (isColorChange) {
+				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const barOneStyle = arrayBars[barOneIdx].style;
+				const barTwoStyle = arrayBars[barTwoIdx].style;
+				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+				setTimeout(() => {
+					barOneStyle.backgroundColor = color;
+					barTwoStyle.backgroundColor = color;
+				}, i * ANIMATION_SPEED_MS);
+			} else {
+				setTimeout(() => {
+					const [ barOneIdx, newHeight ] = animations[i];
+					const barOneStyle = arrayBars[barOneIdx].style;
+					barOneStyle.height = `${newHeight}px`;
+				}, i * ANIMATION_SPEED_MS);
+			}
+		}
 	}
+
+	// mergeSort() {
+	// 	mergeSort(this.state.array);
+	// }
 	quickSort() {
 		console.log('selected quickSort');
 	}
@@ -32,7 +61,7 @@ export class Provider extends Component {
 	handleSelectedSort() {
 		switch (this.state.selectedOption) {
 			case 'mergeSort':
-				this.mergeSort();
+				this.handleMergeSort();
 				break;
 			case 'quickSort':
 				this.quickSort();
