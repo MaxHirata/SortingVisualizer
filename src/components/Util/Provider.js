@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import mergeSort from '../../SortingAlgorithm/MergeSort';
+import bubbleSort from '../../SortingAlgorithm/BubbleSort';
+import heapSort from '../../SortingAlgorithm/HeapSort';
 
 export const MContext = React.createContext();
 
@@ -15,10 +17,35 @@ export class Provider extends Component {
 
 	generateArray() {
 		const array = [];
-		for (let i = 0; i < 200; i++) {
+		for (let i = 0; i < 6; i++) {
 			array.push(randomIntFromIntervals(7, 730));
 		}
 		this.setState({ array: array, selectedOption: null });
+	}
+
+	handleBubbleSort() {
+		const animations = bubbleSort(this.state.array);
+		//console.log('inside provider bubblesort!: ' + animations.length);
+		for (let i = 0; i < animations.length; i++) {
+			const arrayBars = document.getElementsByClassName('array-bar');
+			const isColorChange = i % 3 !== 2;
+			if (isColorChange) {
+				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const barOneStyle = arrayBars[barOneIdx].style;
+				const barTwoStyle = arrayBars[barTwoIdx].style;
+				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+				setTimeout(() => {
+					barOneStyle.backgroundColor = color;
+					barTwoStyle.backgroundColor = color;
+				}, ANIMATION_SPEED_MS);
+			} else {
+				setTimeout(() => {
+					const [ barOneIdx, newHeight ] = animations[i];
+					const barOneStyle = arrayBars[barOneIdx].style;
+					barOneStyle.height = `${newHeight}px`;
+				}, i * ANIMATION_SPEED_MS);
+			}
+		}
 	}
 
 	handleMergeSort() {
@@ -52,7 +79,7 @@ export class Provider extends Component {
 		console.log('selected quickSort');
 	}
 	heapSort() {
-		console.log('selected heapSort');
+		heapSort(this.state.array);
 	}
 	bubbleSort() {
 		console.log('selected bubbleSort');
@@ -70,7 +97,7 @@ export class Provider extends Component {
 				this.heapSort();
 				break;
 			case 'bubbleSort':
-				this.bubbleSort();
+				this.handleBubbleSort();
 				break;
 			default:
 				break;

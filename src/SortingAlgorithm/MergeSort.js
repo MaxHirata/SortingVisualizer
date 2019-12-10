@@ -19,29 +19,46 @@ function _merge(mainArray, start, middle, end, auxiliaryArray, animation) {
 	let i = start;
 	let j = middle + 1;
 	while (i <= middle && j <= end) {
+		// These are values that we are comnparing:
+		// push them once to change color
 		animation.push([ i, j ]);
-
+		// These are values that we are comparing:
+		// push second time to revert color
 		animation.push([ i, j ]);
 
 		if (auxiliaryArray[i] <= auxiliaryArray[j]) {
+			// We overrite the values at index k in the original array with the
+			// values at index i in the aux array
 			animation.push([ k, auxiliaryArray[i] ]);
 			mainArray[k++] = auxiliaryArray[i++];
 		} else {
+			//We overrite the values at index k in the original array with the
+			//values at index j in teh aux array
 			animation.push([ k, auxiliaryArray[j] ]);
 			mainArray[k++] = auxiliaryArray[j++];
 		}
 	}
 
 	while (i <= middle) {
+		//These are values we are comparing: we push them once to change the color
 		animation.push([ i, i ]);
+		//These are values we are comparing: we push them a second time to revert their color
 		animation.push([ i, i ]);
+		//We overrite the values at index k in the original array with the
+		//values at index i in the aux array
 		animation.push([ k, auxiliaryArray[i] ]);
 		mainArray[k++] = auxiliaryArray[i++];
 	}
 
 	while (j <= end) {
+		//These are the values that we're comparing: we push them once
+		//to change their color
 		animation.push([ j, j ]);
+		//These are the values that we're comparing: we push them a
+		//second time to revert their color
 		animation.push([ j, j ]);
+		//We overrite the values at index k in the original array with the
+		//values at index j in the aux array.
 		animation.push([ k, auxiliaryArray[j] ]);
 		mainArray[k++] = auxiliaryArray[j++];
 	}
