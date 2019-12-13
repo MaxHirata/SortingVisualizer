@@ -4,7 +4,7 @@ import { MContext } from '../Util/Provider';
 
 //const ANIMATION_SPEED = 1;
 //const NUM_ARR_BARS = 200;
-const PRIMARY_COLOR = 'teal';
+const PRIMARY_COLOR = '#00ffcc';
 //const SECONDARY_COLOR = 'red';
 
 class SortingVisualizer extends Component {

@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import mergeSort from '../../SortingAlgorithm/MergeSort';
 import bubbleSort from '../../SortingAlgorithm/BubbleSort';
 import heapSort from '../../SortingAlgorithm/HeapSort';
+import quickSort from '../../SortingAlgorithm/QuickSort';
 
 export const MContext = React.createContext();
 
-const PRIMARY_COLOR = 'teal';
+const PRIMARY_COLOR = '#00ffcc';
 const SECONDARY_COLOR = 'red';
 const ANIMATION_SPEED_MS = 5;
 
@@ -17,7 +18,7 @@ export class Provider extends Component {
 
 	generateArray() {
 		const array = [];
-		for (let i = 0; i < 6; i++) {
+		for (let i = 0; i < 80; i++) {
 			array.push(randomIntFromIntervals(7, 730));
 		}
 		this.setState({ array: array, selectedOption: null });
@@ -72,18 +73,66 @@ export class Provider extends Component {
 		}
 	}
 
+	handleHeapSort() {
+		const animations = heapSort(this.state.array);
+		for (let i = 0; i < animations.length; i++) {
+			const arrayBars = document.getElementsByClassName('array-bar');
+			const isColorChange = i % 3 !== 2;
+			if (isColorChange) {
+				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const barOneStyle = arrayBars[barOneIdx].style;
+				const barTwoStyle = arrayBars[barTwoIdx].style;
+				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+				setTimeout(() => {
+					barOneStyle.backgroundColor = color;
+					barTwoStyle.backgroundColor = color;
+				}, i * ANIMATION_SPEED_MS);
+			} else {
+				setTimeout(() => {
+					const [ barOneIdx, newHeight ] = animations[i];
+					const barOneStyle = arrayBars[barOneIdx].style;
+					barOneStyle.height = `${newHeight}px`;
+				}, i * 2 * ANIMATION_SPEED_MS);
+			}
+		}
+	}
+
+	handleQuickSort() {
+		const animations = quickSort(this.state.array);
+		for (let i = 0; i < animations.length; i++) {
+			const arrayBars = document.getElementsByClassName('array-bar');
+			const isColorChange = i % 3 !== 2;
+			if (isColorChange) {
+				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const barOneStyle = arrayBars[barOneIdx].style;
+				const barTwoStyle = arrayBars[barTwoIdx].style;
+				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+				setTimeout(() => {
+					barOneStyle.backgroundColor = color;
+					barTwoStyle.backgroundColor = color;
+				}, i * 2 * ANIMATION_SPEED_MS);
+			} else {
+				setTimeout(() => {
+					const [ barOneIdx, newHeight ] = animations[i];
+					const barOneStyle = arrayBars[barOneIdx].style;
+					barOneStyle.height = `${newHeight}px`;
+				}, i * ANIMATION_SPEED_MS);
+			}
+		}
+	}
+
 	// mergeSort() {
 	// 	mergeSort(this.state.array);
 	// }
-	quickSort() {
-		console.log('selected quickSort');
-	}
-	heapSort() {
-		heapSort(this.state.array);
-	}
-	bubbleSort() {
-		console.log('selected bubbleSort');
-	}
+	// quickSort() {
+	// 	quickSort(this.state.array);
+	// }
+	// heapSort() {
+	// 	heapSort(this.state.array);
+	// }
+	// bubbleSort() {
+	// 	console.log('selected bubbleSort');
+	// }
 
 	handleSelectedSort() {
 		switch (this.state.selectedOption) {
@@ -91,10 +140,10 @@ export class Provider extends Component {
 				this.handleMergeSort();
 				break;
 			case 'quickSort':
-				this.quickSort();
+				this.handleQuickSort();
 				break;
 			case 'heapSort':
-				this.heapSort();
+				this.handleHeapSort();
 				break;
 			case 'bubbleSort':
 				this.handleBubbleSort();
