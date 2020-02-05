@@ -1,3 +1,5 @@
+import AddSwapAnimation from '../components/Util/AddSwapAnimation';
+
 // function bubbleSort(arr) {
 // 	let swapped = true;
 // 	while (swapped) {
@@ -30,12 +32,31 @@ function _bubbleSort(array, animations) {
 		for (let i = 1; i < array.length; i++) {
 			if (array[i] < array[i - 1]) {
 				swapped = true;
-				animations.push([ i, i - 1 ]);
-				animations.push([ i, i - 1 ]);
-				animations.push([ i - 1, array[i] ]);
-				animations.push([ i, i - 1 ]);
-				animations.push([ i, i - 1 ]);
-				animations.push([ i, array[i - 1] ]);
+
+				animations.push([
+					i,
+					i - 1
+				]);
+				animations.push([
+					i,
+					i - 1
+				]);
+				animations.push([
+					i - 1,
+					array[i]
+				]);
+				animations.push([
+					i,
+					i - 1
+				]);
+				animations.push([
+					i,
+					i - 1
+				]);
+				animations.push([
+					i,
+					array[i - 1]
+				]);
 
 				//swap values
 				let temp = array[i];

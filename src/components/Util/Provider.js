@@ -18,7 +18,7 @@ export class Provider extends Component {
 
 	generateArray() {
 		const array = [];
-		for (let i = 0; i < 80; i++) {
+		for (let i = 0; i < 70; i++) {
 			array.push(randomIntFromIntervals(7, 730));
 		}
 		this.setState({ array: array, selectedOption: null });
@@ -99,6 +99,48 @@ export class Provider extends Component {
 
 	handleQuickSort() {
 		const animations = quickSort(this.state.array);
+		for (let i = 0; i < animations.length; i++) {
+			const arrayBars = document.getElementsByClassName('array-bar');
+			const isColorChange = i % 3 !== 2;
+			if (isColorChange) {
+				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const barOneStyle = arrayBars[barOneIdx].style;
+				const barTwoStyle = arrayBars[barTwoIdx].style;
+				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+				setTimeout(() => {
+					barOneStyle.backgroundColor = color;
+					barTwoStyle.backgroundColor = color;
+				}, i * 2 * ANIMATION_SPEED_MS);
+			} else {
+				setTimeout(() => {
+					const [ barOneIdx, newHeight ] = animations[i];
+					const barOneStyle = arrayBars[barOneIdx].style;
+					barOneStyle.height = `${newHeight}px`;
+				}, i * ANIMATION_SPEED_MS);
+			}
+		}
+	}
+
+	handleSortingAlgorithm() {
+		let animations = [];
+
+		switch (this.state.selectedOption) {
+			case 'mergeSort':
+				animations = mergeSort(this.state.array);
+				break;
+			case 'quickSort':
+				animations = quickSort(this.state.array);
+				break;
+			case 'heapSort':
+				animations = heapSort(this.state.array);
+				break;
+			case 'bubbleSort':
+				animations = bubbleSort(this.state.array);
+				break;
+			default:
+				break;
+		}
+
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
 			const isColorChange = i % 3 !== 2;

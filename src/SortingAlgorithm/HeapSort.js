@@ -3,33 +3,117 @@ export default function heapSort(array) {
 	if (array.length === (0 | 1)) {
 		return array;
 	}
-	console.log(array);
 	//heap size
 	let k = array.length - 1;
+	//let i = 0;
+	let n = array.length;
 
-	//maxHeapify(array, k, animations);
+	// while (k >= 0) {
+	// 	//step 1: create a maxHeap
+	// 	//maxHeapify(array, k, animations);
 
-	while (k > 0) {
-		//step 1: create a maxHeap
-		maxHeapify(array, k, animations);
+	// 	heapify(array, n, i, animations);
 
-		//Add animations steps
-		animations.push([ 0, k ]);
-		animations.push([ 0, k ]);
-		animations.push([ 0, array[k] ]);
-		animations.push([ 0, k ]);
-		animations.push([ 0, k ]);
-		animations.push([ k, array[0] ]);
+	// 	//Add animations steps
+	// 	animations.push([ 0, k ]);
+	// 	animations.push([ 0, k ]);
+	// 	animations.push([ 0, array[k] ]);
+	// 	animations.push([ 0, k ]);
+	// 	animations.push([ 0, k ]);
+	// 	animations.push([ k, array[0] ]);
 
-		//step 2: switch first node and last node, the remove the last node in the heap
-		let temp = array[0];
-		array[0] = array[k];
-		array[k] = temp;
-		k -= 1;
+	// 	//step 2: switch first node and last node, the remove the last node in the heap
+	// 	let temp = array[0];
+	// 	array[0] = array[k];
+	// 	array[k] = temp;
+	// 	console.log(array);
+	// 	//console.log('switch array: ' + array[k]);
+	// 	k -= 1;
+	// }
+
+	for (let i = n / 2 - 1; i >= 0; i--) {
+		heapify(array, n, i, animations);
 	}
 
-	console.log(array);
+	for (let i = n - 1; i >= 0; i--) {
+		animations.push([
+			0,
+			i
+		]);
+		animations.push([
+			0,
+			i
+		]);
+		animations.push([
+			0,
+			array[i]
+		]);
+		animations.push([
+			0,
+			i
+		]);
+		animations.push([
+			0,
+			i
+		]);
+		animations.push([
+			i,
+			array[0]
+		]);
+
+		let temp = array[0];
+		array[0] = array[i];
+		array[i] = temp;
+
+		heapify(array, i, 0, animations);
+	}
+
 	return animations;
+}
+
+function heapify(arr, n, i, animations) {
+	var largest = i;
+	var l = 2 * i + 1;
+	var r = 2 * i + 2;
+
+	if (l < n && arr[largest] < arr[l]) largest = l;
+	if (r < n && arr[largest] < arr[r]) largest = r;
+
+	if (largest !== i) {
+		//swap(arr[i], arr[largest])
+
+		animations.push([
+			i,
+			largest
+		]);
+		animations.push([
+			i,
+			largest
+		]);
+		animations.push([
+			i,
+			arr[largest]
+		]);
+		animations.push([
+			i,
+			largest
+		]);
+		animations.push([
+			i,
+			largest
+		]);
+		animations.push([
+			largest,
+			arr[i]
+		]);
+
+		let temp = arr[i];
+		arr[i] = arr[largest];
+		arr[largest] = temp;
+
+		//Recursively heapify the affected sub-tree
+		heapify(arr, n, largest, animations);
+	}
 }
 
 function maxHeapify(array, heapSize, animations) {
@@ -38,30 +122,100 @@ function maxHeapify(array, heapSize, animations) {
 		var child2 = i * 2 + 2;
 		if (child1 <= heapSize && array[i] < array[child1]) {
 			//add animation steps
-			animations.push([ i, child1 ]);
-			animations.push([ i, child1 ]);
-			animations.push([ i, array[child1] ]);
-			animations.push([ i, child1 ]);
-			animations.push([ i, child1 ]);
-			animations.push([ child1, array[i] ]);
+			animations.push([
+				i,
+				child1
+			]);
+			animations.push([
+				i,
+				child1
+			]);
+			animations.push([
+				i,
+				array[child1]
+			]);
+			animations.push([
+				i,
+				child1
+			]);
+			animations.push([
+				i,
+				child1
+			]);
+			animations.push([
+				child1,
+				array[i]
+			]);
 
 			//swap parent and child values
 			var temp = array[i];
 			array[i] = array[child1];
 			array[child1] = temp;
+			//console.log('child1: ' + array[i]);
 		}
 		if (child2 <= heapSize && array[i] < array[child2]) {
 			//add animation steps
-			animations.push([ i, child2 ]);
-			animations.push([ i, child2 ]);
-			animations.push([ i, array[child2] ]);
-			animations.push([ i, child2 ]);
-			animations.push([ i, child2 ]);
-			animations.push([ child2, array[i] ]);
+			animations.push([
+				i,
+				child2
+			]);
+			animations.push([
+				i,
+				child2
+			]);
+			animations.push([
+				i,
+				array[child2]
+			]);
+			animations.push([
+				i,
+				child2
+			]);
+			animations.push([
+				i,
+				child2
+			]);
+			animations.push([
+				child2,
+				array[i]
+			]);
 
 			var temp = array[i];
 			array[i] = array[child2];
 			array[child2] = temp;
+			//console.log('child2: ' + array[i]);
 		}
 	}
 }
+
+// function _heapSort(arr) {
+// 	var n = arr.length;
+// 	for (var i = n; i > -1; i--) {
+// 		_heapify(arr, n, i);
+// 	}
+
+// 	for (var i = n - 1; i > 0; i--) {
+// 		var temp = arr[i];
+// 		arr[i] = arr[0];
+// 		arr[0] = temp;
+
+// 		_heapify(arr, i, 0);
+// 	}
+// }
+
+// function _heapify(arr, n, i) {
+// 	var largest = i;
+// 	var l = i * 2 + 1;
+// 	var r = i + 2 + 2;
+
+// 	if (l < n && arr[largest] < arr[r]) largest = r;
+
+// 	//change root
+// 	if (largest != i) {
+// 		var temp = arr[i];
+// 		arr[i] = arr[largest];
+// 		arr[largest] = temp;
+
+// 		_heapify(arr, n, largest);
+// 	}
+// }
