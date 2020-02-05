@@ -18,7 +18,7 @@ export class Provider extends Component {
 
 	generateArray() {
 		const array = [];
-		for (let i = 0; i < 70; i++) {
+		for (let i = 0; i < 80; i++) {
 			array.push(randomIntFromIntervals(7, 730));
 		}
 		this.setState({ array: array, selectedOption: null });
@@ -31,7 +31,10 @@ export class Provider extends Component {
 			const arrayBars = document.getElementsByClassName('array-bar');
 			const isColorChange = i % 3 !== 2;
 			if (isColorChange) {
-				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const [
+					barOneIdx,
+					barTwoIdx
+				] = animations[i];
 				const barOneStyle = arrayBars[barOneIdx].style;
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
@@ -41,7 +44,10 @@ export class Provider extends Component {
 				}, ANIMATION_SPEED_MS);
 			} else {
 				setTimeout(() => {
-					const [ barOneIdx, newHeight ] = animations[i];
+					const [
+						barOneIdx,
+						newHeight
+					] = animations[i];
 					const barOneStyle = arrayBars[barOneIdx].style;
 					barOneStyle.height = `${newHeight}px`;
 				}, i * ANIMATION_SPEED_MS);
@@ -55,7 +61,10 @@ export class Provider extends Component {
 			const arrayBars = document.getElementsByClassName('array-bar');
 			const isColorChange = i % 3 !== 2;
 			if (isColorChange) {
-				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const [
+					barOneIdx,
+					barTwoIdx
+				] = animations[i];
 				const barOneStyle = arrayBars[barOneIdx].style;
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
@@ -65,7 +74,10 @@ export class Provider extends Component {
 				}, i * ANIMATION_SPEED_MS);
 			} else {
 				setTimeout(() => {
-					const [ barOneIdx, newHeight ] = animations[i];
+					const [
+						barOneIdx,
+						newHeight
+					] = animations[i];
 					const barOneStyle = arrayBars[barOneIdx].style;
 					barOneStyle.height = `${newHeight}px`;
 				}, i * ANIMATION_SPEED_MS);
@@ -79,7 +91,10 @@ export class Provider extends Component {
 			const arrayBars = document.getElementsByClassName('array-bar');
 			const isColorChange = i % 3 !== 2;
 			if (isColorChange) {
-				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const [
+					barOneIdx,
+					barTwoIdx
+				] = animations[i];
 				const barOneStyle = arrayBars[barOneIdx].style;
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
@@ -89,7 +104,10 @@ export class Provider extends Component {
 				}, i * ANIMATION_SPEED_MS);
 			} else {
 				setTimeout(() => {
-					const [ barOneIdx, newHeight ] = animations[i];
+					const [
+						barOneIdx,
+						newHeight
+					] = animations[i];
 					const barOneStyle = arrayBars[barOneIdx].style;
 					barOneStyle.height = `${newHeight}px`;
 				}, i * 2 * ANIMATION_SPEED_MS);
@@ -103,7 +121,10 @@ export class Provider extends Component {
 			const arrayBars = document.getElementsByClassName('array-bar');
 			const isColorChange = i % 3 !== 2;
 			if (isColorChange) {
-				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const [
+					barOneIdx,
+					barTwoIdx
+				] = animations[i];
 				const barOneStyle = arrayBars[barOneIdx].style;
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
@@ -113,7 +134,10 @@ export class Provider extends Component {
 				}, i * 2 * ANIMATION_SPEED_MS);
 			} else {
 				setTimeout(() => {
-					const [ barOneIdx, newHeight ] = animations[i];
+					const [
+						barOneIdx,
+						newHeight
+					] = animations[i];
 					const barOneStyle = arrayBars[barOneIdx].style;
 					barOneStyle.height = `${newHeight}px`;
 				}, i * ANIMATION_SPEED_MS);
@@ -145,7 +169,10 @@ export class Provider extends Component {
 			const arrayBars = document.getElementsByClassName('array-bar');
 			const isColorChange = i % 3 !== 2;
 			if (isColorChange) {
-				const [ barOneIdx, barTwoIdx ] = animations[i];
+				const [
+					barOneIdx,
+					barTwoIdx
+				] = animations[i];
 				const barOneStyle = arrayBars[barOneIdx].style;
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
@@ -155,7 +182,10 @@ export class Provider extends Component {
 				}, i * 2 * ANIMATION_SPEED_MS);
 			} else {
 				setTimeout(() => {
-					const [ barOneIdx, newHeight ] = animations[i];
+					const [
+						barOneIdx,
+						newHeight
+					] = animations[i];
 					const barOneStyle = arrayBars[barOneIdx].style;
 					barOneStyle.height = `${newHeight}px`;
 				}, i * ANIMATION_SPEED_MS);
